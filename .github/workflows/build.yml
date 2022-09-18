@@ -12,7 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+          # os: [windows-latest, macos-latest, ubuntu-latest]
+        os: ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -46,9 +47,14 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
 
+      - name: Cargo prep
+        if: runner.os = "Linux"
+        run: |
+          cargo target add x86_64-unknown-linux-gnu
+
       - name: Cargo Build
         run: |
-          cargo build --verbose --release
+          cargo build --verbose --release --target=x86_64-unknown-linux-gnu
 
       - name: Upload Artifacts (non-windows)
         if: runner.os != 'Windows'
@@ -56,7 +62,7 @@ jobs:
         with:
           name: mas-installer-release-${{ matrix.os }}
           path: |
-            target/release/mas-installer
+            target/x86_64-unknown-linux-gnu/release/mas-installer
 
       - name: Upload Artifacts (windows)
         if: runner.os == 'Windows'
