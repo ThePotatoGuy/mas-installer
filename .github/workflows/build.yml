@@ -48,7 +48,7 @@ jobs:
           key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Cargo prep
-        if: runner.os = "Linux"
+        if: runner.os == "Linux"
         run: |
           cargo target add x86_64-unknown-linux-gnu
 
