@@ -50,11 +50,11 @@ jobs:
       - name: target install
         if: runner.os == 'Linux'
         run: |
-          rustup target add x86_64-unknown-linux-gnu
+          rustup target add x86_64-unknown-linux-musl
 
       - name: Cargo Build
         run: |
-          cargo build --verbose --release --target=x86_64-unknown-linux-gnu
+          cargo build --verbose --release --target=x86_64-unknown-linux-musl
 
       - name: Upload Artifacts (non-windows)
         if: runner.os != 'Windows'
@@ -62,7 +62,7 @@ jobs:
         with:
           name: mas-installer-release-${{ matrix.os }}
           path: |
-            target/x86_64-unknown-linux-gnu/release/mas-installer
+            target/x86_64-unknown-linux-musl/release/mas-installer
 
       - name: Upload Artifacts (windows)
         if: runner.os == 'Windows'
