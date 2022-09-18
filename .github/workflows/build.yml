@@ -53,8 +53,8 @@ jobs:
         run: |
           rustup target add x86_64-unknown-linux-musl
 
-      - name: rust-static-build
-        uses: gmiam/rust-musl-action@v1.1.2
+      - name: Rust Action with Musl
+        uses: ismail/rust-musl-action@1.11
         with:
           args: cargo build --release --verbose --target=x86_64-unknown-linux-musl
 
