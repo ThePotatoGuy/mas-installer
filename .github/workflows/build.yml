@@ -18,6 +18,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Rust Action with Musl
+        uses: ismail/rust-musl-action@1.11
+    
       - name: Install Linux Dependencies
         if: runner.os == 'Linux'
         run: |
@@ -52,8 +55,6 @@ jobs:
         run: |
           rustup target add x86_64-unknown-linux-musl
 
-      - name: rust build
-        uses: gmiam/rust-musl-action@v1.1.2
 
 
       - name: Upload Artifacts (non-windows)
