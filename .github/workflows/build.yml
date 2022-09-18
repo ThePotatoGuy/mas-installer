@@ -5,6 +5,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  PKG_CONFIG_SYSROOT_DIR: /
+  RUST_BACKTRACE: full
 
 jobs:
   build:
